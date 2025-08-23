@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+
+bool isPowerOfTwo(unsigned long long n) {
+    return (n && !(n & (n - 1)));
+}
+
+
+unsigned long long highestPowerOfTwo(unsigned long long n) {
+    unsigned long long p = 1;
+    while (p << 1 <= n) {
+        p <<= 1;
+    }
+    return p;
+}
+
+void counterGame(unsigned long long n) {
+    int turn = 0; 
+    
+    while (n != 1) {
+        if (isPowerOfTwo(n)) {
+            n /= 2;
+        } else {
+            n -= highestPowerOfTwo(n);
+        }
+        turn ^= 1; 
+    }
+    
+    if (turn == 1)
+        printf("Louise\n");
+    else
+        printf("Richard\n");
+}
+
+int main() {
+    int t;
+    unsigned long long n;
+    scanf("%d", &t);
+    while (t--) {
+        scanf("%llu", &n);
+        counterGame(n);
+    }
+    return 0;
+}
