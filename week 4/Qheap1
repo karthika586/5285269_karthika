@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX 100000
+
+int heap[MAX];  
+int size = 0;  
+
+
+void add(int v) {
+    heap[size++] = v;
+}
+
+
+void delete(int v) {
+    for (int i = 0; i < size; i++) {
+        if (heap[i] == v) {
+            heap[i] = heap[size - 1]; 
+            size--;
+            break;
+        }
+    }
+}
+
+
+int findMin() {
+    int min = heap[0];
+    for (int i = 1; i < size; i++) {
+        if (heap[i] < min)
+            min = heap[i];
+    }
+    return min;
+}
+
+int main() {
+    int Q;
+    scanf("%d", &Q);
+
+    for (int i = 0; i < Q; i++) {
+        int type, v;
+        scanf("%d", &type);
+
+        if (type == 1) {
+            scanf("%d", &v);
+            add(v);
+        } else if (type == 2) {
+            scanf("%d", &v);
+            delete(v);
+        } else if (type == 3) {
+            printf("%d\n", findMin());
+        }
+    }
+
+    return 0;
+}
